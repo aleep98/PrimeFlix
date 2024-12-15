@@ -7,7 +7,7 @@ import './home.css'
 
 function Home(){
     const [filmes, setFilmes] = useState([]);
-
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
         async function loadFilmes(){
@@ -20,10 +20,19 @@ function Home(){
             })
 
             setFilmes(response.data.results.slice(0, 10))
+            setLoading(false)
         }
 
         loadFilmes();
     }, [])
+
+    if(loading){
+        return(
+            <div className="loading">
+                <h1>Carregando Filmes...</h1>
+            </div>
+        )
+    }
 
 
     return(
